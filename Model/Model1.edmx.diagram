@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9f7f1c065fd0431f90dae22dd5b0f796" Name="Diagram1">
+        <EntityTypeShape EntityType="bancoEstatalDB2Model.cargos" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoEstatalDB2Model.ciudades" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoEstatalDB2Model.empleados" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoEstatalDB2Model.generos" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoEstatalDB2Model.sedes" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="bancoEstatalDB2Model.FK__empleados__emCar__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoEstatalDB2Model.FK__sedes__seCiudad___3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoEstatalDB2Model.FK__empleados__emGen__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoEstatalDB2Model.FK__empleados__emSed__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

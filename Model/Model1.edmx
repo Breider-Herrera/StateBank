@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bancoEstatalDB2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cargos">
+          <Key>
+            <PropertyRef Name="caID" />
+          </Key>
+          <Property Name="caID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="caCargo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="caFuncion" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ciudades">
+          <Key>
+            <PropertyRef Name="ciID" />
+          </Key>
+          <Property Name="ciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ciCiudad" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleados">
+          <Key>
+            <PropertyRef Name="emCedula" />
+          </Key>
+          <Property Name="emCedula" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="emNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="emApellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="emCorreo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="emDireccion" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="emTelefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="emFoto" Type="varbinary(max)" />
+          <Property Name="emGenero_fk" Type="int" />
+          <Property Name="emCargos_fk" Type="int" />
+          <Property Name="emSedes_fk" Type="int" />
+        </EntityType>
+        <EntityType Name="generos">
+          <Key>
+            <PropertyRef Name="geID" />
+          </Key>
+          <Property Name="geID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genGenero" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sedes">
+          <Key>
+            <PropertyRef Name="seID" />
+          </Key>
+          <Property Name="seID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seNombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="seDireccion" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="seTelefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="seCiudad_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__empleados__emCar__412EB0B6">
+          <End Role="cargos" Type="Self.cargos" Multiplicity="0..1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cargos">
+              <PropertyRef Name="caID" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="emCargos_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleados__emGen__403A8C7D">
+          <End Role="generos" Type="Self.generos" Multiplicity="0..1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="generos">
+              <PropertyRef Name="geID" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="emGenero_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleados__emSed__4222D4EF">
+          <End Role="sedes" Type="Self.sedes" Multiplicity="0..1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sedes">
+              <PropertyRef Name="seID" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="emSedes_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sedes__seCiudad___3D5E1FD2">
+          <End Role="ciudades" Type="Self.ciudades" Multiplicity="1" />
+          <End Role="sedes" Type="Self.sedes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudades">
+              <PropertyRef Name="ciID" />
+            </Principal>
+            <Dependent Role="sedes">
+              <PropertyRef Name="seCiudad_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bancoEstatalDB2ModelStoreContainer">
+          <EntitySet Name="cargos" EntityType="Self.cargos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ciudades" EntityType="Self.ciudades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleados" EntityType="Self.empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="generos" EntityType="Self.generos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sedes" EntityType="Self.sedes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__empleados__emCar__412EB0B6" Association="Self.FK__empleados__emCar__412EB0B6">
+            <End Role="cargos" EntitySet="cargos" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleados__emGen__403A8C7D" Association="Self.FK__empleados__emGen__403A8C7D">
+            <End Role="generos" EntitySet="generos" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleados__emSed__4222D4EF" Association="Self.FK__empleados__emSed__4222D4EF">
+            <End Role="sedes" EntitySet="sedes" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sedes__seCiudad___3D5E1FD2" Association="Self.FK__sedes__seCiudad___3D5E1FD2">
+            <End Role="ciudades" EntitySet="ciudades" />
+            <End Role="sedes" EntitySet="sedes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bancoEstatalDB2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cargos">
+          <Key>
+            <PropertyRef Name="caID" />
+          </Key>
+          <Property Name="caID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="caCargo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="caFuncion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="empleados" Relationship="Self.FK__empleados__emCar__412EB0B6" FromRole="cargos" ToRole="empleados" />
+        </EntityType>
+        <EntityType Name="ciudades">
+          <Key>
+            <PropertyRef Name="ciID" />
+          </Key>
+          <Property Name="ciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ciCiudad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="sedes" Relationship="Self.FK__sedes__seCiudad___3D5E1FD2" FromRole="ciudades" ToRole="sedes" />
+        </EntityType>
+        <EntityType Name="empleados">
+          <Key>
+            <PropertyRef Name="emCedula" />
+          </Key>
+          <Property Name="emCedula" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emApellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emCorreo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emDireccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emTelefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emFoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="emGenero_fk" Type="Int32" />
+          <Property Name="emCargos_fk" Type="Int32" />
+          <Property Name="emSedes_fk" Type="Int32" />
+          <NavigationProperty Name="cargos" Relationship="Self.FK__empleados__emCar__412EB0B6" FromRole="empleados" ToRole="cargos" />
+          <NavigationProperty Name="generos" Relationship="Self.FK__empleados__emGen__403A8C7D" FromRole="empleados" ToRole="generos" />
+          <NavigationProperty Name="sedes" Relationship="Self.FK__empleados__emSed__4222D4EF" FromRole="empleados" ToRole="sedes" />
+        </EntityType>
+        <EntityType Name="generos">
+          <Key>
+            <PropertyRef Name="geID" />
+          </Key>
+          <Property Name="geID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genGenero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="empleados" Relationship="Self.FK__empleados__emGen__403A8C7D" FromRole="generos" ToRole="empleados" />
+        </EntityType>
+        <EntityType Name="sedes">
+          <Key>
+            <PropertyRef Name="seID" />
+          </Key>
+          <Property Name="seID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seNombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seDireccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seTelefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seCiudad_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ciudades" Relationship="Self.FK__sedes__seCiudad___3D5E1FD2" FromRole="sedes" ToRole="ciudades" />
+          <NavigationProperty Name="empleados" Relationship="Self.FK__empleados__emSed__4222D4EF" FromRole="sedes" ToRole="empleados" />
+        </EntityType>
+        <Association Name="FK__empleados__emCar__412EB0B6">
+          <End Role="cargos" Type="Self.cargos" Multiplicity="0..1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cargos">
+              <PropertyRef Name="caID" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="emCargos_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sedes__seCiudad___3D5E1FD2">
+          <End Role="ciudades" Type="Self.ciudades" Multiplicity="1" />
+          <End Role="sedes" Type="Self.sedes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudades">
+              <PropertyRef Name="ciID" />
+            </Principal>
+            <Dependent Role="sedes">
+              <PropertyRef Name="seCiudad_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleados__emGen__403A8C7D">
+          <End Role="generos" Type="Self.generos" Multiplicity="0..1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="generos">
+              <PropertyRef Name="geID" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="emGenero_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleados__emSed__4222D4EF">
+          <End Role="sedes" Type="Self.sedes" Multiplicity="0..1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sedes">
+              <PropertyRef Name="seID" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="emSedes_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bancoEstatalDB2Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cargos" EntityType="Self.cargos" />
+          <EntitySet Name="ciudades" EntityType="Self.ciudades" />
+          <EntitySet Name="empleados" EntityType="Self.empleados" />
+          <EntitySet Name="generos" EntityType="Self.generos" />
+          <EntitySet Name="sedes" EntityType="Self.sedes" />
+          <AssociationSet Name="FK__empleados__emCar__412EB0B6" Association="Self.FK__empleados__emCar__412EB0B6">
+            <End Role="cargos" EntitySet="cargos" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sedes__seCiudad___3D5E1FD2" Association="Self.FK__sedes__seCiudad___3D5E1FD2">
+            <End Role="ciudades" EntitySet="ciudades" />
+            <End Role="sedes" EntitySet="sedes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleados__emGen__403A8C7D" Association="Self.FK__empleados__emGen__403A8C7D">
+            <End Role="generos" EntitySet="generos" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleados__emSed__4222D4EF" Association="Self.FK__empleados__emSed__4222D4EF">
+            <End Role="sedes" EntitySet="sedes" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bancoEstatalDB2ModelStoreContainer" CdmEntityContainer="bancoEstatalDB2Context">
+          <EntitySetMapping Name="cargos">
+            <EntityTypeMapping TypeName="bancoEstatalDB2Model.cargos">
+              <MappingFragment StoreEntitySet="cargos">
+                <ScalarProperty Name="caID" ColumnName="caID" />
+                <ScalarProperty Name="caCargo" ColumnName="caCargo" />
+                <ScalarProperty Name="caFuncion" ColumnName="caFuncion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ciudades">
+            <EntityTypeMapping TypeName="bancoEstatalDB2Model.ciudades">
+              <MappingFragment StoreEntitySet="ciudades">
+                <ScalarProperty Name="ciID" ColumnName="ciID" />
+                <ScalarProperty Name="ciCiudad" ColumnName="ciCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleados">
+            <EntityTypeMapping TypeName="bancoEstatalDB2Model.empleados">
+              <MappingFragment StoreEntitySet="empleados">
+                <ScalarProperty Name="emCedula" ColumnName="emCedula" />
+                <ScalarProperty Name="emNombre" ColumnName="emNombre" />
+                <ScalarProperty Name="emApellido" ColumnName="emApellido" />
+                <ScalarProperty Name="emCorreo" ColumnName="emCorreo" />
+                <ScalarProperty Name="emDireccion" ColumnName="emDireccion" />
+                <ScalarProperty Name="emTelefono" ColumnName="emTelefono" />
+                <ScalarProperty Name="emFoto" ColumnName="emFoto" />
+                <ScalarProperty Name="emGenero_fk" ColumnName="emGenero_fk" />
+                <ScalarProperty Name="emCargos_fk" ColumnName="emCargos_fk" />
+                <ScalarProperty Name="emSedes_fk" ColumnName="emSedes_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="generos">
+            <EntityTypeMapping TypeName="bancoEstatalDB2Model.generos">
+              <MappingFragment StoreEntitySet="generos">
+                <ScalarProperty Name="geID" ColumnName="geID" />
+                <ScalarProperty Name="genGenero" ColumnName="genGenero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sedes">
+            <EntityTypeMapping TypeName="bancoEstatalDB2Model.sedes">
+              <MappingFragment StoreEntitySet="sedes">
+                <ScalarProperty Name="seID" ColumnName="seID" />
+                <ScalarProperty Name="seNombre" ColumnName="seNombre" />
+                <ScalarProperty Name="seDireccion" ColumnName="seDireccion" />
+                <ScalarProperty Name="seTelefono" ColumnName="seTelefono" />
+                <ScalarProperty Name="seCiudad_fk" ColumnName="seCiudad_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
